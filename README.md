@@ -1,40 +1,92 @@
 # RoboBachelor
 
-RoboBachelor 是 SparkR 轮腿机器人的 PID 固件与机械设计开源整理版，面向 STM32F427 主控。
+**相似连杆轮腿机构 · STM32 · PID 平衡控制**
 
-**English overview:** RoboBachelor provides STM32F427 wheel-legged robot firmware and native SolidWorks models. The controller uses cascaded PI/P/PD loops. The complete-source IMU backend uses MIT LibDriver MPU6500 transport and an adapted GPL Mahony implementation; it is not the old A-board example. Full Keil compilation/linking and offline tests pass. The new backend and mechanical assemblies have not been validated on hardware or rebuilt in CAD.
+<p align="center">
+  <img src="media/robobachelor-prototype.webp" width="760" alt="RoboBachelor 项目实物样机，展示两侧白色齿轮与连杆、轮端电机、透明机身板和控制板卡。">
+</p>
+<p align="center"><em>项目实物样机：将轮腿机构、机身板卡与电机线束集成在同一小型底盘上。</em></p>
 
-本版本是 PID 系列控制，不含 VMC-LQR 或强化学习。原来调通的项目另外完整归档在本地，不随公共仓库发布。新 IMU 后端保持控制接口的轴向、单位和 PID 默认值，但不保证与旧固件数值或动态行为完全一致，见[后端变更](docs/imu-backend.md)。
+RoboBachelor（原项目名 **SparkR**）是一台小型两轮腿机器人。轮子承担滚动与平衡，左右两侧的连杆机构调节支撑几何，让机身高度和轮式运动可以分别控制。这个仓库公开机械模型、STM32 固件与配套说明，便于从机构、接线到控制代码一起理解和修改。
 
-## 使用前
+本次开源的是 **PID 版本**：位置 PI、速度 P、直立 PD 与偏航角速度 P 构成控制主线，腿部通过逆运动学生成关节目标。
 
-按作者最终要求，保留原 STOP 拨杆和原启动使能流程，**没有新增 ARM/DISARM 操作或遥控失联保护，也没有永久禁能宏**。初始化成功后会请求使能电机；下载和检查时应物理断开动力。STOP 分支抑制新的关节位置/速度目标并发送零轮力矩，不代表物理断电或电机卸力。接收机 RF209S 接 CH9、HOLD，实际端口模式及 STOP 解析尚未在本轮实测。先读[控制与软件边界](docs/safety.md)、[已知问题](docs/known-issues.md)和[上电检查](docs/bring-up.md)。
+**English:** RoboBachelor is a compact two-wheeled legged robot combining a similar-linkage leg mechanism with STM32-based PID balance control. This repository provides native mechanical models, firmware, build instructions and offline tests.
 
-## 目录
+## 腿部设计：用相似连杆实现紧凑布置
 
-```text
-firmware/MDK-ARM/Imu.uvprojx  Keil 主工程，目标 Imu
-firmware/MDK-ARM/bsp/         IMU兼容接口、HAL/AUX适配、原遥控解析和调参
-firmware/Src/control/        PI/P/PD、状态估计与腿部运动学
-firmware/Src/motor/          DM4310 / JC 协议
-firmware/ThirdParty/         许可明确的 LibDriver 子集与 Mahony 源码
-firmware/Drivers/            工程需要的 ST HAL / CMSIS
-mechanical/native/          2个SLDASM + 9个SLDPRT，原文件名/二进制保留
-docs/                       硬件依据、构建、控制、变更与验证
-tests/、tools/              离线检查，无刷写或设备访问
-LICENSES/                   许可证全文
+每侧用两路关节输入控制等效腿长和腿角，轮毂电机位于腿端。齿轮与相似连杆传递关节运动，使驱动集中在机身侧面，而不用把电机逐级布置到腿的末端。
+
+- **紧凑的侧向布置**：围绕小型机身安排齿轮、连杆和驱动，兼顾腿部运动空间与线束走向。
+- **轮与腿分工**：轮端负责滚动，腿部负责改变支撑高度和几何关系。
+- **便于控制建模**：以等效腿长、腿角描述轮心位置，再通过逆运动学分配到关节。
+
+![RoboBachelor 单侧腿的 CAD 视图和几何布局，显示齿轮、相似连杆与关键尺寸。](media/leg-mechanism.png)
+
+*单侧腿的结构视图与几何布局。原生零件、腿部装配和总装入口见[模型导航](mechanical/README.md)。*
+
+**腿部构型思路借鉴了上海交通大学交龙战队的步兵机器人机械开源**，在本项目中围绕小型机身与轮端布置展开。相关官方资料：[交龙战队串联腿步兵机器人机械结构开源](https://bbs.robomaster.com/article/803691)。
+
+## 实物与运动演示
+
+| 室内地面 | 室外木质地面 |
+| :---: | :---: |
+| ![RoboBachelor 项目样机在室内地面行驶的真实视频画面。](media/indoor-motion.webp) | ![RoboBachelor 项目样机在室外木质地面运动的真实视频画面。](media/outdoor-motion.webp) |
+
+<p align="center">
+  <a href="media/robobachelor-motion.mp4"><img src="media/robobachelor-motion.gif" width="320" alt="项目实物运动短片：机器人在室内地面和室外木板上移动、转向。点击查看完整视频。"></a>
+</p>
+<p align="center"><a href="media/robobachelor-motion.mp4">查看完整实物演示（26 秒 MP4，无音轨）</a></p>
+
+以上是项目已有样机的真实影像，用于展示机构与运动；本次发布的新 IMU 后端尚未真机验证。
+
+## 从机械、电气到 PID 控制
+
+| 部分 | 发布工程中的实现 |
+| --- | --- |
+| 机械 | 左右两条轮腿、每侧两路关节驱动与一个轮端；提供 SolidWorks 零件和装配 |
+| 主控 | STM32F4，Keil 工程目标为 STM32F427IIHx |
+| 感知 | MPU6500 与 IST8310，结合关节、车轮反馈得到控制所需状态 |
+| 执行 | CAN1 连接 4 个 DM4310 关节驱动和 2 个 JC 轮毂驱动 |
+| 操作 | 遥控速度、转向和腿长；保留原 STOP 拨杆流程，支持 UART8 参数调试 |
+
+```mermaid
+flowchart LR
+    RC[遥控输入] --> TARGET[速度 / 转向 / 腿长目标]
+    IMU[IMU] --> EST[姿态与状态估计]
+    FB[电机反馈] --> EST
+    TARGET --> PID[位置 PI → 速度 P → 直立 PD<br/>偏航角速度 P]
+    EST --> PID
+    TARGET --> IK[腿部逆运动学]
+    PID --> WHEEL[CAN · 左右轮力矩]
+    IK --> LEG[CAN · 四个关节目标]
 ```
 
-构建入口见[build.md](docs/build.md)；硬件、代码可核实的接线与不完整 BOM 见[hardware.md](docs/hardware.md)；模型入口见[mechanical/README.md](mechanical/README.md)。没有猜测的连接器针脚、整机采购清单、性能指标或支持硬件承诺。模型未做打开、重建或导出检查，现有资料没有STEP/STL。
+控制代码涵盖起身、平衡、前后行驶、转向、腿长调节，以及摇杆居中时的位置保持。详细参数、符号和调用关系见[控制说明](docs/control.md)；板卡、CAN 与接线依据见[硬件说明](docs/hardware.md)。
 
-## 实际控制
+## 开始使用
 
-`main → robot_logic_update / state_estimator_update → balance_ctrl_update`：位置保持PI修正目标线速度，速度P输出倾角修正，直立PD换算轮力矩，偏航角速度P合成左右差速力矩，腿部逆运动学生成位置目标；起身使用MIT速度目标。参数和单位见[control.md](docs/control.md)。
+```bash
+git clone https://github.com/ppknkn/RoboBachelor.git
+cd RoboBachelor
+python tools/run_host_tests.py
+```
 
-## 已执行验证
+用 Keil 打开 `firmware/MDK-ARM/Imu.uvprojx`，选择 `Imu` 目标并 Rebuild。工具链与附加 ARM GCC 检查步骤见[构建说明](docs/build.md)。
 
-完整 Keil ARMCC 5.06u7 重建 **38个C文件、启动汇编及链接，0错误/0警告**；ARM GCC 13.3.0编译38个C目标文件 **0失败/0警告**。主机测试覆盖新IMU寄存器模拟、SPI端口、Mahony数学、原STOP状态/缩放、电机帧编码及6项离线帧工具测试。详见[validation.md](docs/validation.md)。没有连接机器人、刷写、驱动电机或取得实物性能结果；不分发本地编译二进制。
+> **首次上电：** 原启动流程会请求使能电机，下载和检查时先物理断开动力。保留原 STOP；RF209S 的 HOLD 不等于失联停机。实物检查按[上电步骤](docs/bring-up.md)进行。
 
-## 许可和贡献
+| 想了解什么 | 入口 |
+| --- | --- |
+| 看机构、改零件或装配 | [mechanical/](mechanical/README.md) |
+| 构建固件与工具链 | [docs/build.md](docs/build.md) |
+| 看 PID、运动学与默认参数 | [docs/control.md](docs/control.md) · [firmware/Src/control/](firmware/Src/control/) |
+| 核对电机、主控和接线 | [docs/hardware.md](docs/hardware.md) |
+| 查看验证记录、IMU 迁移和软件边界 | [验证记录](docs/validation.md) · [IMU 后端](docs/imu-backend.md) · [STOP 与软件边界](docs/safety.md) · [已知问题](docs/known-issues.md) |
+| 提问题或贡献修改 | [CONTRIBUTING.md](CONTRIBUTING.md) |
 
-原创代码/工具 **GPL-3.0-only**，原创CAD **CERN-OHL-S-2.0**；LibDriver保留MIT，Mahony保留上游GPL-3.0-or-later及作者通知，ST/Arm保留原许可，DM模型按作者向厂家确认的MIT单列。范围见[LICENSE.md](LICENSE.md)及[第三方通知](THIRD_PARTY_NOTICES.md)。贡献前请读[CONTRIBUTING.md](CONTRIBUTING.md)，说明实际验证范围，避免提交凭据、个人配置、构建产物或无权发布的素材。
+## 许可证与致谢
+
+- **原创固件、工具与代码文档：GPL-3.0-only。原创机械设计：CERN-OHL-S-2.0。** 文件范围和完整条款见[LICENSE.md](LICENSE.md)与[LICENSES/](LICENSES/)。
+- **第三方实现与模型保留各自许可和作者通知**：LibDriver MPU6500（MIT）；RoboMaster C 板 Mahony 实现及 SOH Madgwick 原作者说明（GPL-3.0-or-later）；ST / Arm 库和模板的原条款；DM 电机模型按项目作者向厂家确认的 MIT 单列。来源与范围集中记录在[第三方通知](THIRD_PARTY_NOTICES.md)。
+- 感谢交龙战队公开机械设计资料，构型参考见上文链接。照片、机构图和演示取自本项目资料，来源及裁剪/压缩说明见[媒体记录](media/README.md)。
