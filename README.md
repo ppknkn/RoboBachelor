@@ -34,9 +34,9 @@ RoboBachelor（原项目名 **SparkR**）是一台小型两轮腿机器人。轮
 | ![RoboBachelor 项目样机在室内地面行驶的真实视频画面。](media/indoor-motion.webp) | ![RoboBachelor 项目样机在室外木质地面运动的真实视频画面。](media/outdoor-motion.webp) |
 
 <p align="center">
-  <a href="media/robobachelor-motion.mp4"><img src="media/robobachelor-motion.gif" width="320" alt="项目实物运动短片：机器人在室内地面和室外木板上移动、转向。点击查看完整视频。"></a>
+  <a href="https://github.com/ppknkn/RoboBachelor/raw/refs/heads/main/media/robobachelor-motion.mp4"><img src="media/robobachelor-motion.gif" width="320" alt="项目实物运动短片：机器人在室内地面和室外木板上移动、转向。点击下载完整视频。"></a>
 </p>
-<p align="center"><a href="media/robobachelor-motion.mp4">查看完整实物演示（26 秒 MP4，无音轨）</a></p>
+<p align="center"><a href="https://github.com/ppknkn/RoboBachelor/raw/refs/heads/main/media/robobachelor-motion.mp4">下载完整实物演示（26 秒 MP4，无音轨）</a></p>
 
 以上是项目已有样机的真实影像，用于展示机构与运动；本次发布的新 IMU 后端尚未真机验证。
 
@@ -55,7 +55,7 @@ flowchart LR
     RC[遥控输入] --> TARGET[速度 / 转向 / 腿长目标]
     IMU[IMU] --> EST[姿态与状态估计]
     FB[电机反馈] --> EST
-    TARGET --> PID[位置 PI → 速度 P → 直立 PD<br/>偏航角速度 P]
+    TARGET --> PID[位置 PI → 速度 P<br/>直立 PD<br/>偏航角速度 P]
     EST --> PID
     TARGET --> IK[腿部逆运动学]
     PID --> WHEEL[CAN · 左右轮力矩]
