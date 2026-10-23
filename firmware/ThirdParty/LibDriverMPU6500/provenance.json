@@ -1,0 +1,23 @@
+{
+  "revision": "a66ceb7a5f18473f4807daebf0c63afdc077cc4f",
+  "retained_functions": [
+    "a_mpu6500_read",
+    "a_mpu6500_write",
+    "a_mpu6500_deinit",
+    "mpu6500_init",
+    "mpu6500_get_reg",
+    "mpu6500_set_reg",
+    "mpu6500_set_iic_master",
+    "mpu6500_set_iic_clock",
+    "mpu6500_set_iic_delay_enable",
+    "mpu6500_set_iic_delay",
+    "mpu6500_read_extern_sensor_data"
+  ],
+  "upstream_files": {
+    "LICENSE": "81753bf783b8e971fcbcac6e4008d58f32c44818f3678df9774414565cb7c465",
+    "revision.txt": "49eda7cbaadfc3ce4d0692354e63476aef6d7b43fa705a52bff5896330367b9d",
+    "interface\\driver_mpu6500_interface_template.c": "84b77e0a3bf90a70dedff2443fe2989df51f2dd07b0aaa4f7d0b9e2767807e6a",
+    "src\\driver_mpu6500.c": "82744838533b1410c164516f73686b6394fd2ee18194cac6016ec9ec628038ca",
+    "src\\driver_mpu6500.h": "8fecbf1eecbd87f476333272053d6ee86ea783c4a2271652ce849259b8d4a2f4"
+  }
+}

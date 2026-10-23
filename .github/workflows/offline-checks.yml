@@ -1,0 +1,15 @@
+name: Offline source checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  host-and-arm-c:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Install C compilers and ARM C library headers
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends gcc gcc-arm-none-eabi libnewlib-arm-none-eabi
+      - name: Host mocks and synthetic test vectors
+        run: python3 tools/run_host_tests.py
+      - name: ARM C compilation only (Keil assembly and link are local checks)
+        run: python3 tools/check_firmware.py

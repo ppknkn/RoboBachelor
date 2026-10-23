@@ -1,0 +1,1 @@
+Source: https://github.com/RoboMaster/Development-Board-C-Examples/tree/59d12b1adcd321dbf1f9e9166aef5eb95ab657bf/18.ins_task/components/algorithm . GPL-3.0-or-later; original author notices retained. This is an actual adapted C-board implementation, not a relabelled A-board source. See file header and docs/imu-backend.md for changes and numerical limitations.

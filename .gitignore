@@ -1,0 +1,27 @@
+# Local compilation and uVision output
+build/
+firmware/MDK-ARM/Imu/
+*.o
+*.d
+*.crf
+*.axf
+*.hex
+*.bin
+*.map
+*.lst
+*.lnp
+*.dep
+*.build_log.htm
+*.uvoptx
+*.uvguix.*
+*.bak
+*.log
+__pycache__/
+.vscode/
+.idea/
+.claude/
+.agents/
+.env
+.env.*
+!.env.example
+~$*

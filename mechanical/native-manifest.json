@@ -1,0 +1,57 @@
+[
+  {
+    "file": "!总装_tiny.SLDASM",
+    "bytes": 12508333,
+    "sha256": "b0a03cfa79e425114a498f2f35cb654f6d187d495bd859b132edd291ab03465d"
+  },
+  {
+    "file": "DM-J4310-2EC-V1.1_3d_20260228_1.SLDPRT",
+    "bytes": 14513800,
+    "sha256": "8999a012c2d5d645fc0b0ab7580f88f1baae9643ccb12d1abb9e2fc053535c9e"
+  },
+  {
+    "file": "JC4310尺寸.SLDPRT",
+    "bytes": 204447,
+    "sha256": "6d5e3b2407cc9929eb09fe3b35c5d720cdee3ebd07a83053371b19cbe77409d2"
+  },
+  {
+    "file": "rline1050.SLDPRT",
+    "bytes": 109698,
+    "sha256": "5b9dc00e731a0ad6a52b3cc89271560addf52152a8d3a037d8391f77aa09aa43"
+  },
+  {
+    "file": "Robomaster_A_board.SLDPRT",
+    "bytes": 2695953,
+    "sha256": "1481492b593ed7eae7e0f30cab6be4cfee8cdb7805eeaaf62e7db426a5334ccf"
+  },
+  {
+    "file": "串联右腿260406-tiny.SLDASM",
+    "bytes": 1059524,
+    "sha256": "dedd40b4c317fd3e592137855a7385f9ccf17196b5ca35a3271f35d28def50e1"
+  },
+  {
+    "file": "串联腿_260406-tiny.SLDPRT",
+    "bytes": 7885746,
+    "sha256": "8bdb82b5d8a8b14919b513ad9846984f263e55f55de117d2b14ca10277c51f48"
+  },
+  {
+    "file": "主动齿轮_tiny.SLDPRT",
+    "bytes": 768382,
+    "sha256": "b7cefc19e8df872611c3f91d9172dc9eae256811c8ecee2d02debdcd43f5354b"
+  },
+  {
+    "file": "电机架260412_tiny.SLDPRT",
+    "bytes": 186628,
+    "sha256": "cec517c4e51c5853ef4e9f37bafec97dbba85874390d1157174deed2fb61b11f"
+  },
+  {
+    "file": "车架260412_tiny.SLDPRT",
+    "bytes": 521820,
+    "sha256": "900d786770fcdaa621343c701d010b7208930ac1308d28c3151b4719f447b4ee"
+  },
+  {
+    "file": "轮.SLDPRT",
+    "bytes": 156879,
+    "sha256": "62634ee79234796301e813a09985555a187859df636dbb06d0324808f49b6c7e"
+  }
+]
