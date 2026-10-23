@@ -52,14 +52,14 @@ RoboBachelor（原项目名 **SparkR**）是一台小型两轮腿机器人。轮
 
 ```mermaid
 flowchart LR
-    RC[遥控输入] --> TARGET[速度 / 转向 / 腿长目标]
+    RC[遥控输入] --> TARGET[速度 / 转向<br/>腿长目标]
     IMU[IMU] --> EST[姿态与状态估计]
     FB[电机反馈] --> EST
     TARGET --> PID[位置 PI → 速度 P<br/>直立 PD<br/>偏航角速度 P]
     EST --> PID
     TARGET --> IK[腿部逆运动学]
-    PID --> WHEEL[CAN · 左右轮力矩]
-    IK --> LEG[CAN · 四个关节目标]
+    PID --> WHEEL[CAN<br/>左右轮力矩]
+    IK --> LEG[CAN<br/>四个关节目标]
 ```
 
 控制代码涵盖起身、平衡、前后行驶、转向、腿长调节，以及摇杆居中时的位置保持。详细参数、符号和调用关系见[控制说明](docs/control.md)；板卡、CAN 与接线依据见[硬件说明](docs/hardware.md)。
