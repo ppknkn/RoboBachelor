@@ -16,4 +16,4 @@
 | 正常PID保持 | 默认增益、balance控制计算、电机ID/方向和消费者单位保持；新后端数值差异另列 | 不保证旧/新固件等价 |
 | 模型与ST文件 | 11模型与原件SHA-256一致；284个ST库文件与本机CubeF4 1.28.3一致 | CAD未成功打开/重建/导出；新电脑pack解析未复现 |
 
-运行 `python tools/run_host_tests.py` 重现主机测试，`python tools/check_firmware.py` 重现附加C编译；Keil见[build.md](build.md)。云端CI仅做主机与GCC检查，不能替代本机Keil链接或硬件试验。
+运行 `python tools/run_host_tests.py` 重现主机测试，`python tools/check_firmware.py` 重现附加ARM C编译；Keil见[build.md](build.md)。云端CI使用运行器预装的GCC/Python执行主机离线测试，不安装额外工具链；ARM GCC与Keil链接是上述实际本机检查，CI不能替代这些检查或硬件试验。
