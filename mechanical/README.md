@@ -1,29 +1,35 @@
-# 模型导航
+[简体中文](README.md) | [English](README.en.md)
 
-候选包在 native 中提供 11 个原生模型，保持原文件名和平铺位置，二进制与原件一致。JC 已由用户更正确认为原创，DM 由用户向厂家确认 MIT，分别恢复并标明许可，见 [来源更新](excluded-models.md) 与 [DM 许可说明](DM-MIT-NOTICE.md)。原装配引用字段未改，仍未验证完整性。本轮没有使用 SolidWorks 打开或重新保存，也没有验证嵌入引用、缺件、版本、重建和干涉。
+# 机械模型
 
-建议首先在支持其实际保存版本的 SolidWorks 中打开 `native/!总装_tiny.SLDASM`。名称表明它是总装入口，但未实际验证加载成功。`串联右腿260406-tiny.SLDASM` 是另一个装配入口；不要将它与零件文件混为 STEP/STL。
+这里提供 RoboBachelor 的机身、腿部、传动和轮端模型：`native/` 中有 **2 个 SolidWorks 装配文件和 9 个零件文件**。
 
-| 文件 | 导航线索 |
+![单侧相似连杆腿的结构与几何布局。](../media/leg-mechanism.png)
+
+## 从总装开始
+
+1. 将整个 `mechanical/` 目录保存到本地，保持 `native/` 内的文件名和相对位置。
+2. 在 SolidWorks 中打开 [!总装_tiny.SLDASM](native/!总装_tiny.SLDASM)，从整机查看部件关系；单看腿部时打开[右腿装配](native/串联右腿260406-tiny.SLDASM)。
+3. 进入对应零件编辑尺寸或结构。另存修改版时，在 CAD 内管理装配引用；编辑前先确认文档单位。
+
+## 文件导航
+
+| 文件 | 用途 |
 | --- | --- |
-| !总装_tiny.SLDASM | 总装命名入口 |
-| 串联右腿260406-tiny.SLDASM | 右腿装配命名入口 |
-| 车架260412_tiny.SLDPRT | 车架 |
-| 串联腿_260406-tiny.SLDPRT | 腿部零件 |
-| 电机架260412_tiny.SLDPRT | 电机安装零件 |
-| 轮.SLDPRT | 轮零件 |
-| 主动齿轮_tiny.SLDPRT | 齿轮零件 |
-| DM-J4310-2EC-V1.1_3d_20260228_1.SLDPRT | 用户向达妙官方确认 MIT，原始版权通知待补 |
-| JC4310尺寸.SLDPRT | 用户更正确认为原创，CERN-OHL-S-2.0 |
-| rline1050.SLDPRT | 用户确认原创；组件含义和尺寸未由 CAD 验证 |
-| Robomaster_A_board.SLDPRT | 用户确认原创的板外形模型；硬件版本未核实 |
+| [!总装_tiny.SLDASM](native/!总装_tiny.SLDASM) | 整机装配入口 |
+| [串联右腿260406-tiny.SLDASM](native/串联右腿260406-tiny.SLDASM) | 右腿装配 |
+| [车架260412_tiny.SLDPRT](native/车架260412_tiny.SLDPRT) | 车架零件 |
+| [串联腿_260406-tiny.SLDPRT](native/串联腿_260406-tiny.SLDPRT) | 腿部零件 |
+| [电机架260412_tiny.SLDPRT](native/电机架260412_tiny.SLDPRT) | 电机安装零件 |
+| [轮.SLDPRT](native/轮.SLDPRT) | 轮零件 |
+| [主动齿轮_tiny.SLDPRT](native/主动齿轮_tiny.SLDPRT) | 主动齿轮 |
+| [DM-J4310-2EC-V1.1_3d_20260228_1.SLDPRT](native/DM-J4310-2EC-V1.1_3d_20260228_1.SLDPRT) | DM 电机外形模型 |
+| [JC4310尺寸.SLDPRT](native/JC4310尺寸.SLDPRT) | JC 电机外形模型 |
+| [rline1050.SLDPRT](native/rline1050.SLDPRT) | rline1050 组件模型 |
+| [Robomaster_A_board.SLDPRT](native/Robomaster_A_board.SLDPRT) | RoboMaster A 板外形模型 |
 
-`native-manifest.json` 提供文件大小与 SHA-256，便于检查传输完整性；它不能验证 CAD 的正确性。当前 2 个 SLDASM、9 个 SLDPRT，共 40,611,210 字节，没有现成 STEP、STL、Parasolid、工程图或 URDF。最大文件约 14.5 MB，无单文件达到 100 MB；本地候选树未启用 LFS。
+`.SLDASM` 是装配文件，`.SLDPRT` 是零件文件。[native-manifest.json](native-manifest.json) 提供文件大小与 SHA-256，便于核对下载内容。
 
-## 正式发布前仍需完成
+## 继续阅读
 
-- 使用实际 CAD 版本验证总装与零件依赖；若引用外部目录，使用 CAD 的 Pack and Go 收集依赖，确认后在副本中处理路径。
-- 用 CAD 属性工具检查作者、最后保存人、公司、自定义属性和嵌入文件路径。二进制字符串启发式扫描不足以确认没有私人信息；勿直接十六进制替换路径。
-- 核实第三方模型的再分发权；不能仅删除文件而宣称装配依然完整。
-- 为原创设计补可由自由/开源工具查看的可交换格式，并核对单位和几何。CERN-OHL-S-2.0 第 1.8 节的 Complete Source 条款要求关注专有源格式的可查看替代形式；目前仅有原生文件，尚未满足可复现发布资料的验证要求。
-- 补制造尺寸、材料、紧固件和装配说明，未核实的内容不从零件名推测。
+[装配、格式与制造资料说明](../docs/mechanical-notes.md) · [统一许可与来源](../LICENSE.md) · [项目介绍](../README.md)

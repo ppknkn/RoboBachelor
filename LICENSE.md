@@ -1,25 +1,23 @@
-# 许可证范围
+# 许可与署名入口
 
-本项目不存在覆盖所有文件的统一许可证。以下许可仅涉及项目作者有权授权的原创内容；第三方作品、模板、工具链及厂商零件保持各自许可。完整条款存于 LICENSES；本说明不改写条款。
+本页汇总文件的许可范围和来源入口。第三方文件保留各自版权与条款，项目许可不替代其原授权；完整许可原文位于 [LICENSES/](LICENSES/) 及对应组件目录。
 
-| 路径或内容 | 许可 / 状态 |
+| 文件或内容 | 适用许可 / 来源 |
 | --- | --- |
-| `firmware/Src/control/*`、`firmware/Src/motor/*` | 原创实现 GPL-3.0-only |
-| `firmware/MDK-ARM/bsp/bsp_can.[ch]`、`bsp_dbus.[ch]`、`bsp_tune.[ch]` | 原创实现 GPL-3.0-only |
-| `tools/*.py`、`tests/*` 及测试桩 | GPL-3.0-only |
-| 项目原创配置及原创代码说明文档 | GPL-3.0-only；嵌入的第三方格式、引用和声明不被重新授权 |
-| ST 生成文件的项目原创 USER CODE 部分 | GPL-3.0-only；原 ST 模板版权和许可声明保留，不能按此表重新授权 ST 模板 |
-| `firmware/Drivers/CMSIS/*` | 保留随附 Apache-2.0 等原声明；见第三方通知 |
-| `firmware/Drivers/STM32F4xx_HAL_Driver/*` | 随附组件许可说明指出无 Package_license 时适用 BSD-3-Clause；保留原说明 |
-| 新 `firmware/MDK-ARM/bsp/bsp_imu.[ch]`、`imu_port.[ch]`、`imu_ist8310_aux.[ch]` | 新兼容门面/板级适配 GPL-3.0-only，旧未许可A板实现及辅助头已移出分发 |
-| `firmware/ThirdParty/LibDriverMPU6500/*` | MIT，Copyright (c) 2015 - present LibDriver；保留原通知，明确列出删减范围与固定提交 |
-| `firmware/ThirdParty/Mahony/*` | GPL-3.0-or-later，保留RoboMaster及SOH Madgwick通知，实际C板源码改造，修改说明在文件头 |
-| `firmware/MDK-ARM/startup_stm32f427xx.s` | 文件内完整 ST BSD-3-Clause 风格条款，保留原版权与原声明 |
-| 其他 ST 生成模板 | 保留原版权与声明；生成链、基础 Templates 的 BSD 回退条款和 ST 官方社区说明已记录于 docs/upstream-provenance.md |
-| 原创机械设计 | CERN-OHL-S-2.0，具体文件见 `mechanical/LICENSE_SCOPE.md` |
-| DM-J4310-2EC 模型 | MIT，依据作者向达妙官方确认；原始版权通知待补，见 mechanical/DM-MIT-NOTICE.md |
-| 装配内其他第三方数据 | 不因本项目声明被重新授权；见模型范围表 |
+| `firmware/Src/control/`、`firmware/Src/motor/` 的原创代码 | GPL-3.0-only |
+| `firmware/MDK-ARM/bsp/` 的项目代码，包括 IMU 兼容接口与板级适配 | GPL-3.0-only；所调用的第三方实现单独列于下方 |
+| `tools/`、`tests/`、项目原创配置和代码说明文档 | GPL-3.0-only；嵌入的第三方格式、引用与原声明仍按其原条款 |
+| ST 生成文件的原创 USER CODE 部分 | GPL-3.0-only；ST 模板本身保留原版权与条款 |
+| `firmware/ThirdParty/LibDriverMPU6500/` | MIT；LibDriver 原版权与通知保留 |
+| `firmware/ThirdParty/Mahony/` | GPL-3.0-or-later；保留 RoboMaster 和 SOH Madgwick 作者信息及修改说明 |
+| `firmware/Drivers/CMSIS/` | 保留 Arm / ST 的 Apache-2.0 等原声明，详见第三方通知 |
+| `firmware/Drivers/STM32F4xx_HAL_Driver/` | 保留组件与包级许可；相应 BSD-3-Clause 条款见原文件及随附文本 |
+| `firmware/MDK-ARM/startup_stm32f427xx.s` | 文件内 ST 的完整 BSD-3-Clause 风格条款 |
+| 其他 ST 生成模板 | 保留原版权与声明；[来源说明](docs/upstream-provenance.md)记录模板与许可依据 |
+| 作者原创机械设计 | CERN-OHL-S-2.0；逐文件范围见[机械许可范围](mechanical/LICENSE_SCOPE.md) |
+| DM-J4310-2EC 电机模型 | MIT；授权信息来源见[模型通知](mechanical/DM-MIT-NOTICE.md) |
+| 装配内的第三方数据 | 按实际原授权，不因项目范围表而变为原创内容 |
 
-[GPL-3.0-only 全文](LICENSES/GPL-3.0-only.txt) · [CERN-OHL-S-2.0 全文](LICENSES/CERN-OHL-S-2.0.txt) · [Apache-2.0 全文](LICENSES/Apache-2.0.txt) · [BSD-3-Clause 全文](LICENSES/BSD-3-Clause.txt)
+[GPL-3.0-only](LICENSES/GPL-3.0-only.txt) · [CERN-OHL-S-2.0](LICENSES/CERN-OHL-S-2.0.txt) · [Apache-2.0](LICENSES/Apache-2.0.txt) · [BSD-3-Clause](LICENSES/BSD-3-Clause.txt) · [第三方来源与通知](THIRD_PARTY_NOTICES.md)
 
-版权署名使用各原文件既有声明和实际贡献者身份；未凭空填写个人姓名或把厂商版权改成项目作者。DM模型许可依据作者向厂家确认，其原始通知未独立取得，限制如实记录；模型可交换格式/装配验证尚未完成。完整源码后端与实际依赖见 docs/imu-backend.md。
+请保留各文件既有版权、作者信息、修改说明和适用许可。照片与视频的素材来源见[媒体来源记录](docs/media-sources.md)；机械格式与使用说明见[机械文档](docs/mechanical-notes.md)。

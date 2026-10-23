@@ -1,3 +1,5 @@
+[简体中文](README.md) | [English](README.en.md)
+
 # RoboBachelor
 
 **相似连杆轮腿机构 · STM32 · PID 平衡控制**
@@ -10,8 +12,6 @@
 RoboBachelor（原项目名 **SparkR**）是一台小型两轮腿机器人。轮子承担滚动与平衡，左右两侧的连杆机构调节支撑几何，让机身高度和轮式运动可以分别控制。这个仓库公开机械模型、STM32 固件与配套说明，便于从机构、接线到控制代码一起理解和修改。
 
 本次开源的是 **PID 版本**：位置 PI、速度 P、直立 PD 与偏航角速度 P 构成控制主线，腿部通过逆运动学生成关节目标。
-
-**English:** RoboBachelor is a compact two-wheeled legged robot combining a similar-linkage leg mechanism with STM32-based PID balance control. This repository provides native mechanical models, firmware, build instructions and offline tests.
 
 ## 腿部设计：用相似连杆实现紧凑布置
 
@@ -38,7 +38,7 @@ RoboBachelor（原项目名 **SparkR**）是一台小型两轮腿机器人。轮
 </p>
 <p align="center"><a href="https://github.com/ppknkn/RoboBachelor/raw/refs/heads/main/media/robobachelor-motion.mp4">下载完整实物演示（26 秒 MP4，无音轨）</a></p>
 
-以上是项目已有样机的真实影像，用于展示机构与运动；本次发布的新 IMU 后端尚未真机验证。
+以上影像展示项目既有样机的机构与运动。
 
 ## 从机械、电气到 PID 控制
 
@@ -74,7 +74,7 @@ python tools/run_host_tests.py
 
 用 Keil 打开 `firmware/MDK-ARM/Imu.uvprojx`，选择 `Imu` 目标并 Rebuild。工具链与附加 ARM GCC 检查步骤见[构建说明](docs/build.md)。
 
-> **首次上电：** 原启动流程会请求使能电机，下载和检查时先物理断开动力。保留原 STOP；RF209S 的 HOLD 不等于失联停机。实物检查按[上电步骤](docs/bring-up.md)进行。
+> **首次上电：** 固件会沿原流程请求使能电机，下载和检查时先物理断开动力。新 IMU 后端尚未真机验证；RF209S 的 HOLD 不等于失联停机。请按[上电步骤](docs/bring-up.md)检查。
 
 | 想了解什么 | 入口 |
 | --- | --- |
@@ -87,6 +87,4 @@ python tools/run_host_tests.py
 
 ## 许可证与致谢
 
-- **原创固件、工具与代码文档：GPL-3.0-only。原创机械设计：CERN-OHL-S-2.0。** 文件范围和完整条款见[LICENSE.md](LICENSE.md)与[LICENSES/](LICENSES/)。
-- **第三方实现与模型保留各自许可和作者通知**：LibDriver MPU6500（MIT）；RoboMaster C 板 Mahony 实现及 SOH Madgwick 原作者说明（GPL-3.0-or-later）；ST / Arm 库和模板的原条款；DM 电机模型按项目作者向厂家确认的 MIT 单列。来源与范围集中记录在[第三方通知](THIRD_PARTY_NOTICES.md)。
-- 感谢交龙战队公开机械设计资料，构型参考见上文链接。照片、机构图和演示取自本项目资料，来源及裁剪/压缩说明见[媒体记录](media/README.md)。
+文件许可、第三方署名与适用范围统一从[许可说明](LICENSE.md)查阅。感谢交龙战队分享机械设计资料，构型参考见上文；项目影像可从[媒体目录](media/README.md)浏览。

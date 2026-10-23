@@ -1,13 +1,22 @@
-# 项目媒体来源
+[简体中文](README.md) | [English](README.en.md)
 
-本目录只使用项目作者授权公开的 SparkR / RoboBachelor 既有资料，不包含其他项目的图片或生成的原型图。
+# 实物与演示媒体
 
-| 文件 | 来源与处理 |
+本目录汇集 SparkR / RoboBachelor 的实物照片、腿部机构图和运动演示，供项目介绍与文档引用。
+
+<img src="robobachelor-prototype.webp" width="560" alt="RoboBachelor 实物样机及其侧面齿轮、连杆和机身板卡。">
+
+| 文件 | 内容 |
 | --- | --- |
-| robobachelor-prototype.webp | 项目网站的 sparkr-built.webp 实物照片；保持原画面，重新编码去除多余元数据 |
-| leg-mechanism.png | 项目网站的 sparkr-leg-kinematics.png，亦见原项目机械说明；原图逐字节保留 |
-| indoor-motion.webp / outdoor-motion.webp | 既有无音轨运动视频第1秒 / 第18秒的实物帧，只裁剪与压缩 |
-| robobachelor-motion.gif | 同一视频第1–3秒及第16–18秒的短预览；裁剪、缩小并降低帧率/色数 |
-| robobachelor-motion.mp4 | 项目网站已有26秒无音轨视频；保留H.264画面，重封装并去除容器附加元数据 |
+| [robobachelor-prototype.webp](robobachelor-prototype.webp) | 整机实物照片 |
+| [leg-mechanism.png](leg-mechanism.png) | 单侧腿机构与几何图 |
+| [indoor-motion.webp](indoor-motion.webp) | 室内运动画面 |
+| [outdoor-motion.webp](outdoor-motion.webp) | 室外木质地面运动画面 |
+| [robobachelor-motion.gif](robobachelor-motion.gif) | 可直接嵌入 Markdown 的短动图 |
+| [robobachelor-motion.mp4](robobachelor-motion.mp4) | 26 秒完整演示，无音轨 |
 
-实物照片与视频是项目已有样机记录，不作为本次新固件的硬件验证证据；电机等硬件曾有迭代，发布工程配置以硬件说明为准。原始照片、视频和文档未被改写。交龙战队的参考资料仅链接致谢，未把其照片、图纸或技术文档复制到本媒体目录；构型参考与具体文件许可分别说明。
+[下载完整 MP4](https://github.com/ppknkn/RoboBachelor/raw/refs/heads/main/media/robobachelor-motion.mp4)。README 使用 GIF 直接预览，MP4 链接用于下载完整视频。
+
+媒体来自本项目已有的 SparkR 网站与机构资料。详细来源和版本对应关系见[媒体来源记录](../docs/media-sources.md)；许可与署名从[统一许可说明](../LICENSE.md)查阅。
+
+[返回项目介绍](../README.md)
